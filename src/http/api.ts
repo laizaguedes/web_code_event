@@ -4,91 +4,101 @@
  * Receita Connect
  * OpenAPI spec version: 0.0.1
  */
-export type PostSubscriptionsBody = {
-  name: string
-  email: string
+export type SubscribeToEventBody = {
+  name: string;
+  email: string;
   /** @nullable */
-  referrer?: string | null
-}
+  referrer?: string | null;
+};
 
-export type PostSubscriptions201 = {
-  subscriberId: string
-}
+export type SubscribeToEvent201 = {
+  subscriberId: string;
+};
 
 /**
  * @nullable
  */
-export type GetInvitesSubscriberId302 =
-  | (typeof GetInvitesSubscriberId302)[keyof typeof GetInvitesSubscriberId302]
-  | null
+export type AccessInviteLink301 = typeof AccessInviteLink301[keyof typeof AccessInviteLink301] | null;
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetInvitesSubscriberId302 = {
+export const AccessInviteLink301 = {
   null: 'null',
-} as const
+} as const;
 
-export type GetSubscribersSubscriberIdRankingClicks200 = {
-  count: number
-}
+export type GetSubscriberInviteClicks200 = {
+  count: number;
+};
 
-export type GetSubscribersSubscriberIdRankingCount200 = {
-  count: number
-}
+export type GetSubscriberInviteCount200 = {
+  count: number;
+};
 
-export type GetSubscribersSubscriberIdRankingPosition200 = {
+export type GetSubscriberRankingPosition200 = {
   /** @nullable */
-  position: number | null
-}
+  position: number | null;
+};
 
 export type GetRanking200RankingItem = {
-  id: string
-  name: string
-  score: number
-}
+  id: string;
+  name: string;
+  score: number;
+};
 
 export type GetRanking200 = {
-  ranking: GetRanking200RankingItem[]
-}
+  ranking: GetRanking200RankingItem[];
+};
+
+
 
 /**
- * @summary Subscribes someone to the event
+ * @summary Subscribe to event
  */
-export const getPostSubscriptionsUrl = () => {
-  return `http://localhost:3333/subscriptions`
+export const getSubscribeToEventUrl = () => {
+
+
+  return `https://api-code-event.onrender.com/subscriptions`
 }
 
-export const postSubscriptions = async (
-  postSubscriptionsBody: PostSubscriptionsBody,
-  options?: RequestInit
-): Promise<PostSubscriptions201> => {
-  const res = await fetch(getPostSubscriptionsUrl(), {
+export const subscribeToEvent = async (subscribeToEventBody: SubscribeToEventBody, options?: RequestInit): Promise<SubscribeToEvent201> => {
+  
+  const res = await fetch(getSubscribeToEventUrl(),
+  {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(postSubscriptionsBody),
-  })
+    body: JSON.stringify(
+      subscribeToEventBody,)
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: PostSubscriptions201 = body ? JSON.parse(body) : {}
+  const data: SubscribeToEvent201 = body ? JSON.parse(body) : {}
 
   return data
 }
 
+
+
 /**
- * @summary Access invite link and redirects user
+ * @summary Access invite link
  */
-export const getGetInvitesSubscriberIdUrl = (subscriberId: string) => {
-  return `http://localhost:3333/invites/${subscriberId}`
+export const getAccessInviteLinkUrl = (subscriberId: string,) => {
+
+
+  return `https://api-code-event.onrender.com/invites/${subscriberId}`
 }
 
-export const getInvitesSubscriberId = async (
-  subscriberId: string,
-  options?: RequestInit
-): Promise<unknown> => {
-  const res = await fetch(getGetInvitesSubscriberIdUrl(subscriberId), {
+export const accessInviteLink = async (subscriberId: string, options?: RequestInit): Promise<unknown> => {
+  
+  const res = await fetch(getAccessInviteLinkUrl(subscriberId),
+  {      
     ...options,
-    method: 'GET',
-  })
+    method: 'GET'
+    
+    
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: unknown = body ? JSON.parse(body) : {}
@@ -96,110 +106,117 @@ export const getInvitesSubscriberId = async (
   return data
 }
 
+
+
 /**
- * @summary Get subscriber ranking invite clicks count
+ * @summary Get subscriber ranking invites clicks count
  */
-export const getGetSubscribersSubscriberIdRankingClicksUrl = (
-  subscriberId: string
-) => {
-  return `http://localhost:3333/subscribers/${subscriberId}/ranking/clicks`
+export const getGetSubscriberInviteClicksUrl = (subscriberId: string,) => {
+
+
+  return `https://api-code-event.onrender.com/subscribers/${subscriberId}/ranking/clicks`
 }
 
-export const getSubscribersSubscriberIdRankingClicks = async (
-  subscriberId: string,
-  options?: RequestInit
-): Promise<GetSubscribersSubscriberIdRankingClicks200> => {
-  const res = await fetch(
-    getGetSubscribersSubscriberIdRankingClicksUrl(subscriberId),
-    {
-      ...options,
-      method: 'GET',
-    }
-  )
+export const getSubscriberInviteClicks = async (subscriberId: string, options?: RequestInit): Promise<GetSubscriberInviteClicks200> => {
+  
+  const res = await fetch(getGetSubscriberInviteClicksUrl(subscriberId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: GetSubscribersSubscriberIdRankingClicks200 = body
-    ? JSON.parse(body)
-    : {}
+  const data: GetSubscriberInviteClicks200 = body ? JSON.parse(body) : {}
 
   return data
 }
+
+
 
 /**
  * @summary Get subscriber ranking invites count
  */
-export const getGetSubscribersSubscriberIdRankingCountUrl = (
-  subscriberId: string
-) => {
-  return `http://localhost:3333/subscribers/${subscriberId}/ranking/count`
+export const getGetSubscriberInviteCountUrl = (subscriberId: string,) => {
+
+
+  return `https://api-code-event.onrender.com/subscribers/${subscriberId}/ranking/count`
 }
 
-export const getSubscribersSubscriberIdRankingCount = async (
-  subscriberId: string,
-  options?: RequestInit
-): Promise<GetSubscribersSubscriberIdRankingCount200> => {
-  const res = await fetch(
-    getGetSubscribersSubscriberIdRankingCountUrl(subscriberId),
-    {
-      ...options,
-      method: 'GET',
-    }
-  )
+export const getSubscriberInviteCount = async (subscriberId: string, options?: RequestInit): Promise<GetSubscriberInviteCount200> => {
+  
+  const res = await fetch(getGetSubscriberInviteCountUrl(subscriberId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: GetSubscribersSubscriberIdRankingCount200 = body
-    ? JSON.parse(body)
-    : {}
+  const data: GetSubscriberInviteCount200 = body ? JSON.parse(body) : {}
 
   return data
 }
+
+
 
 /**
  * @summary Get subscriber ranking position
  */
-export const getGetSubscribersSubscriberIdRankingPositionUrl = (
-  subscriberId: string
-) => {
-  return `http://localhost:3333/subscribers/${subscriberId}/ranking/position`
+export const getGetSubscriberRankingPositionUrl = (subscriberId: string,) => {
+
+
+  return `https://api-code-event.onrender.com/subscribers/${subscriberId}/ranking/position`
 }
 
-export const getSubscribersSubscriberIdRankingPosition = async (
-  subscriberId: string,
-  options?: RequestInit
-): Promise<GetSubscribersSubscriberIdRankingPosition200> => {
-  const res = await fetch(
-    getGetSubscribersSubscriberIdRankingPositionUrl(subscriberId),
-    {
-      ...options,
-      method: 'GET',
-    }
-  )
+export const getSubscriberRankingPosition = async (subscriberId: string, options?: RequestInit): Promise<GetSubscriberRankingPosition200> => {
+  
+  const res = await fetch(getGetSubscriberRankingPositionUrl(subscriberId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: GetSubscribersSubscriberIdRankingPosition200 = body
-    ? JSON.parse(body)
-    : {}
+  const data: GetSubscriberRankingPosition200 = body ? JSON.parse(body) : {}
 
   return data
 }
+
+
 
 /**
  * @summary Get ranking
  */
 export const getGetRankingUrl = () => {
-  return `http://localhost:3333/ranking`
+
+
+  return `https://api-code-event.onrender.com/ranking`
 }
 
-export const getRanking = async (
-  options?: RequestInit
-): Promise<GetRanking200> => {
-  const res = await fetch(getGetRankingUrl(), {
+export const getRanking = async ( options?: RequestInit): Promise<GetRanking200> => {
+  
+  const res = await fetch(getGetRankingUrl(),
+  {      
     ...options,
-    method: 'GET',
-  })
+    method: 'GET'
+    
+    
+  }
+)
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: GetRanking200 = body ? JSON.parse(body) : {}
 
   return data
 }
+
+
+
