@@ -6,6 +6,7 @@ import { subscribeToEvent } from '@/http/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Mail, Radio, User } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -16,7 +17,7 @@ const subscriptionSchema = z.object({
 
 type SubscriptionSchema = z.infer<typeof subscriptionSchema>
 
-export function SubscriptionForm() {
+function SubscriptionFormInternal() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -88,5 +89,13 @@ export function SubscriptionForm() {
         <ArrowRight />
       </Button>
     </form>
+  )
+}
+
+export function SubscriptionForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SubscriptionFormInternal />
+    </Suspense>
   )
 }
