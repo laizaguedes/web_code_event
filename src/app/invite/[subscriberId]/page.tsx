@@ -7,9 +7,13 @@ import { InviteLinkInput } from './invite-link-input'
 import { Stats } from './stats'
 
 interface InvitePageProps {
-  params: Promise<{
+  params: {
     subscriberId: string
-  }>
+  }
+}
+
+export async function generateStaticParams(props: InvitePageProps) {
+  return props.params.subscriberId
 }
 
 export default async function Invitepage(props: InvitePageProps) {
