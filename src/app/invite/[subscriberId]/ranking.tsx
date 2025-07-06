@@ -13,7 +13,7 @@ export async function Ranking() {
         Ranking de indicações
       </h2>
       <div className="space-y-4">
-        {ranking.map((item, index) => {
+        {ranking?.map((item, index) => {
           const rankingPosition = index + 1
 
           return (
