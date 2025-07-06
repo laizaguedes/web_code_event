@@ -5,19 +5,15 @@ import logo from '../../../assets/logo.svg'
 import { env } from '../../../env'
 import { InviteLinkInput } from './invite-link-input'
 import { Stats } from './stats'
-
-interface InvitePageProps {
+/*
+type InvitePageProps = {
   params: {
     subscriberId: string
   }
 }
-
-export async function generateStaticParams(props: InvitePageProps) {
-  return props.params.subscriberId
-}
-
-export default async function Invitepage(props: InvitePageProps) {
-  const { subscriberId } = await props.params
+*/
+export default function Invitepage(/*{ params }: InvitePageProps*/) {
+  const subscriberId=""
 
   const inviteLink = `${env.API_URL}/invites/${subscriberId}`
 
