@@ -6,5 +6,5 @@ const envSchema = z.object({
 })
 
 export const env = envSchema.parse({
-  API_URL: process.env.API_URL,
+  API_URL: process.env.NEXT_PUBLIC_API_URL,
 })
